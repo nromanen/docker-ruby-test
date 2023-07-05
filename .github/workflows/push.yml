@@ -22,3 +22,12 @@ jobs:
         run: bundle install
       - name: Run tests
         run: ruby test/script_test.rb
+        
+      - name: Build the stack
+        run: docker-compose up -d
+        
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
+        
+  

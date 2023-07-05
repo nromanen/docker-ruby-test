@@ -24,6 +24,7 @@ jobs:
         run: ruby test/script_test.rb
         
       - name: Build the stack
+        if: success()
         run: docker-compose up -d
         
       - name: Stop containers

@@ -3,7 +3,7 @@ services:
   nodejs-server:
     build:
       context: ./api
-      dockerfile: untitled folder/Dockerfile-dev
+      dockerfile: Dockerfile-dev
     ports:
       - "3080:3080"
     container_name: node-api
@@ -13,7 +13,7 @@ services:
   angular-ui:
     build:
       context: ./ui
-      dockerfile: untitled folder/Dockerfile-dev
+      dockerfile: Dockerfile-dev
     ports:
       - "4201:4201"
     container_name: angular-ui

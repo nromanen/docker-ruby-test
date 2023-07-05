@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: bundle install
       - name: Run tests
-        run: ruby test/script_test.rb
+        run: ruby script_test.rb
         
       - name: Build the stack
         if: success()

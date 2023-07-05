@@ -5,27 +5,27 @@ require 'yaml'
 class ScriptTest < Test::Unit::TestCase
 
   def setup
-    @content = YAML.load(File.read('../docker-compose.yml'))
+    @content = YAML.load(File.read('docker-compose.yml'))
   end
 
   def test_docker_compose_file
-    actual = File.file?('../docker-compose.yml')
+    actual = File.file?('docker-compose.yml')
     assert(actual, 'In root folder should exists file with name \'docker-compose.yml\'')
   end
 
   def test_docker_file_ui
-    actual = File.file?('../ui/Dockerfile-dev')
+    actual = File.file?('ui/Dockerfile-dev')
     assert(actual, 'In \'ui\' folder should exists file with name \'Dockerfile-dev\'')
   end
 
   def test_docker_file_api
-    actual = File.file?('../api/Dockerfile-dev')
+    actual = File.file?('api/Dockerfile-dev')
     assert(actual, 'In \'api\' folder should exists file with name \'Dockerfile-dev\'')
   end
 
   def test_ui_nodejs_version
     actual = false
-    File.foreach("../ui/Dockerfile-dev") do |line|
+    File.foreach("ui/Dockerfile-dev") do |line|
       if /FROM.*node:16/i =~ line
         actual = true
         break
@@ -36,7 +36,7 @@ class ScriptTest < Test::Unit::TestCase
 
   def test_ui_expose_port
     actual = false
-    File.foreach("../ui/Dockerfile-dev") do |line|
+    File.foreach("ui/Dockerfile-dev") do |line|
       if /EXPOSE.*4201/i =~ line
         actual = true
         break
@@ -47,7 +47,7 @@ class ScriptTest < Test::Unit::TestCase
 
   def test_api_nodejs_version
     actual = false
-    File.foreach("../api/Dockerfile-dev") do |line|
+    File.foreach("api/Dockerfile-dev") do |line|
       if /FROM.*node:16/i =~ line
         actual = true
         break
@@ -58,7 +58,7 @@ class ScriptTest < Test::Unit::TestCase
 
   def test_api_expose_port
     actual = false
-    File.foreach("../api/Dockerfile-dev") do |line|
+    File.foreach("api/Dockerfile-dev") do |line|
       if /EXPOSE.*3080/i =~ line
         actual = true
         break
@@ -91,17 +91,15 @@ class ScriptTest < Test::Unit::TestCase
 
   def test_api_port_present
     actual = @content["services"]["nodejs-server"]["ports"]
-    expected = 3080
+    expected = ["3080:3080"]
     assert_equal(expected, actual, "Port for api should be equal to #{expected}")
   end
 
   def test_ui_port_present
     actual = @content["services"]["angular-ui"]["ports"]
-    expected = 4201
+    expected = ["4201:4201"]
     assert_equal(expected, actual, "Port for ui should be equal to #{expected}")
   end
-
-
 
 
 end
